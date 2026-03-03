@@ -5,11 +5,16 @@ This repository contains the configuration for a Monitoring PoC with two microse
 ## Prerequisites
 - A Kubernetes cluster
 - `kubectl` and `helm` installed and configured
+- `git` installed and configured
 
 ## Directory Structure
 - `microservices/`: Code and manifests for Service‑A (Shell/Alpine) and Service‑B (Nginx/Alpine).
 - `helm/`: Helm values for the PLG stack (including sidecar config for Grafana).
-
+## setup
+```bash
+git clone https://github.com/ameygirkar/Prometheus_Grafana_Loki_stack.git
+cd Prometheus_Grafana_Loki_stack
+```
 ## Deployment Steps
 
 ### 1. Create Namespaces
