@@ -28,11 +28,15 @@ jobs:
         with:
           context: ./microservices/service-a
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/service-a:latest
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/service-a:latest
+            ${{ secrets.DOCKER_USERNAME }}/service-a:${{ github.run_number }}
 
       - name: Build and push Service-B
         uses: docker/build-push-action@v4
         with:
           context: ./microservices/service-b
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/service-b:latest
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/service-b:latest
+            ${{ secrets.DOCKER_USERNAME }}/service-b:${{ github.run_number }}
