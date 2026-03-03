@@ -14,6 +14,10 @@ grafana:
       url: http://loki-stack.monitoring.svc.cluster.local:3100
       access: proxy
       isDefault: false
+  sidecar:
+    datasources:
+      enabled: true
+      label: grafana_datasource
 
 alertmanager:
   config:
