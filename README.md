@@ -15,6 +15,13 @@ This repository contains the configuration for a Monitoring PoC with two microse
 git clone https://github.com/ameygirkar/Prometheus_Grafana_Loki_stack.git
 cd Prometheus_Grafana_Loki_stack
 ```
+## Quick Setup
+You can use the provided automation script to set up everything (namespaces, microservices, and monitoring stack):
+```bash
+chmod +x setup-monitoring.sh
+./setup-monitoring.sh
+```
+
 ## Deployment Steps
 
 ### 1. Create Namespaces

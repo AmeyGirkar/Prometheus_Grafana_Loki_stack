@@ -4,8 +4,12 @@ loki:
   persistence:
     enabled: true
     size: 10Gi
+  service:
+    type: ClusterIP
+    port: 3100
 
 promtail:
-  enabled: true
-  config:
-    lokiAddress: http://{{ .Release.Name }}:3100/loki/api/v1/push
+  enabled: false
+
+grafana:
+  enabled: false
