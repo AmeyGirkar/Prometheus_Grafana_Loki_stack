@@ -10,20 +10,20 @@ while true; do
     RANDOM_VAL=$(awk 'BEGIN{srand(); print int(rand()*10)}')
     
     if [ "$RANDOM_VAL" -lt 7 ]; then
-        echo "$(date) - [INFO] - Service-A: Sending request to Service-B"
+        echo "$(date) - [INFO] - Amey - Service-A: Sending request to Service-B"
     elif [ "$RANDOM_VAL" -lt 9 ]; then
-        echo "$(date) - [WARN] - Service-A: Delayed request execution"
+        echo "$(date) - [WARN] - Amey - Service-A: Delayed request execution"
     else
-        echo "$(date) - [ERROR] - Service-A: System pressure detected before request"
+        echo "$(date) - [ERROR] - Amey - Service-A: System pressure detected before request"
     fi
 
     # Perform request to Service-B
     RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_B_URL" --max-time 2)
     
     if [ "$RESPONSE" = "200" ]; then
-        echo "$(date) - [INFO] - Service-A: Successfully received 200 from Service-B"
+        echo "$(date) - [INFO] - Amey - Service-A: Successfully received 200 from Service-B"
     else
-        echo "$(date) - [ERROR] - Service-A: Failed request to Service-B, Status: $RESPONSE"
+        echo "$(date) - [ERROR] - Amey - Service-A: Failed request to Service-B, Status: $RESPONSE"
     fi
 
     # Wait for random interval
