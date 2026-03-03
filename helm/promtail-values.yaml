@@ -8,6 +8,8 @@ config:
       kubernetes_sd_configs:
         - role: pod
       relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app]
+          target_label: app
         - source_labels: [__meta_kubernetes_namespace]
           target_label: namespace
         - source_labels: [__meta_kubernetes_pod_name]
@@ -16,6 +18,17 @@ config:
           target_label: container
         - source_labels: [__meta_kubernetes_pod_node_name]
           target_label: node_name
-        - source_labels: [__meta_kubernetes_namespace]
-          regex: apps
-          action: keep   # collect logs only from the `apps` namespace (adjust as needed)
+        - action: replace
+          replacement: /var/log/pods/$1/*.log
+          separator: /
+          source_labels: [__meta_kubernetes_pod_uid, __meta_kubernetes_pod_container_name]
+          target_label: __path__
+
+    # Job for node logs (system logs)
+    - job_name: system
+      static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: varlogs
+          __path__: /var/log/*.log

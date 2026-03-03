@@ -55,12 +55,9 @@ helm upgrade --install loki-stack grafana/loki-stack \
 ```
 > **Note**: This installs or upgrades Loki, enabling log collection. After deployment, ensure your microservices ship logs to Loki (e.g., via Promtail) and view them in Grafana.
 
-### 4. Install Promtail (Log Collector)
-Add Promtail to ship logs from your microservices to Loki. Make sure you have a `helm/promtail-values.yaml` file with any custom configuration you need.
+#### Install Promtail (Log Collector)
 ```bash
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo update
-helm install promtail grafana/promtail \
+helm upgrade --install promtail grafana/promtail \
   --namespace monitoring \
   -f helm/promtail-values.yaml
 ```
@@ -90,17 +87,18 @@ Login at `http://localhost:3000` with username `admin` and password `admin` (unl
 
 ### 2. Check Application Logs (Loki)
 1. Navigate to **Explore** in the sidebar.
-2. Select **Loki** from the datasource dropdown (it should already be present thanks to the sidecar).
+2. Select **Loki** from the datasource dropdown.
 3. Use the following LogQL queries:
-   - **Service‑A Logs**: `{namespace="apps", pod=~"service-a.*"}`
-   - **Service‑B Logs**: `{namespace="apps", pod=~"service-b.*"}`
-   - **Error Filter**: `{namespace="apps"} |= "ERROR"`
+   - **Service‑A Logs**: `{job="kubernetes-pods", app="service-a"}`
+   - **Service‑B Logs**: `{job="kubernetes-pods", app="service-b"}`
+   - **All Pod Logs**: `{job="kubernetes-pods"}`
+   - **Error Filter**: `{job="kubernetes-pods"} |= "ERROR"`
 
-### 3. Check Node‑Level Logs
+### 3. Check Node-Level Logs (System Logs)
 1. In the **Explore** tab (Loki datasource).
-2. Use the query: `{job="kubernetes-pods-static"}` or `{container="kube-proxy"}` to see system logs.
-3. To see logs for a specific node: `{node_name="YOUR_NODE_NAME"}`
-
+2. Use the query: `{job="varlogs"}` to see system logs from `/var/log/*.log`.
+3. To see logs for a specific node: `{job="varlogs", node_name="YOUR_NODE_NAME"}`
+4. To see specific system logs: `{job="varlogs", __path__="/var/log/syslog"}` or `{job="varlogs", __path__="/var/log/auth.log"}`
 ### 4. Metrics & Alerts
 - **Prometheus**: Check the Metrics browser for `http_requests_total`.
 - **Alertmanager**: Access via `kubectl port-forward svc/prometheus-stack-kube-alertmanager 9093:9093 -n monitoring`.
