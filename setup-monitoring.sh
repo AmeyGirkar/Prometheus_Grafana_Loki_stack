@@ -35,6 +35,11 @@ helm upgrade --install loki-stack grafana/loki-stack \
   -f helm/loki-stack-values.yaml
 
 echo "--------------------------------------------------"
+echo "4.5 Provisioning Loki Datasource via Sidecar..."
+echo "--------------------------------------------------"
+kubectl apply -f helm/loki-datasource.yaml
+
+echo "--------------------------------------------------"
 echo "5. Installing Prometheus Stack..."
 echo "--------------------------------------------------"
 helm upgrade --install monitoring-stack prometheus-community/kube-prometheus-stack \

@@ -8,12 +8,8 @@ prometheus:
 grafana:
   enabled: true
   adminPassword: admin # Change this in production
-  additionalDataSources:
-    - name: Loki
-      type: loki
-      url: http://loki-stack.monitoring.svc.cluster.local:3100
-      access: proxy
-      isDefault: false
+  # Removed additionalDataSources to fix "Only one datasource per organization can be marked as default" error.
+  # We will add Loki via a sidecar ConfigMap instead.
   sidecar:
     datasources:
       enabled: true
