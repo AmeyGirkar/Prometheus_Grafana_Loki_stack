@@ -8,7 +8,7 @@ This repository contains the configuration for a Monitoring PoC with two microse
 
 ## Directory Structure
 - `microservices/`: Code and manifests for Service‑A (Shell/Alpine) and Service‑B (Nginx/Alpine).
-- `helm/`: Helm values for the PLG stack.
+- `helm/`: Helm values for the PLG stack (including sidecar config for Grafana).
 
 ## Deployment Steps
 
@@ -51,7 +51,7 @@ helm upgrade --install loki-stack grafana/loki-stack \
 > **Note**: This installs or upgrades Loki, enabling log collection. After deployment, ensure your microservices ship logs to Loki (e.g., via Promtail) and view them in Grafana.
 
 ### 4. Install Promtail (Log Collector)
-Add Promtail to ship logs from your microservices to Loki:
+Add Promtail to ship logs from your microservices to Loki. Make sure you have a `helm/promtail-values.yaml` file with any custom configuration you need.
 ```bash
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
