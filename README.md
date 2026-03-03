@@ -40,9 +40,10 @@ helm install prometheus-stack prometheus-community/kube-prometheus-stack \
   -f helm/kube-prometheus-stack-values.yaml
 ```
 
-Install Loki Stack:
+Install Loki Stack (Version 2.10.3):
 ```bash
 helm install loki-stack grafana/loki-stack \
+  --version 2.10.3 \
   --namespace monitoring \
   -f helm/loki-stack-values.yaml
 ```
