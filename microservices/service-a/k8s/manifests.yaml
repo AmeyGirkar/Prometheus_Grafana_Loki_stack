@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: service-a
-        image: service-a:latest 
+        image: ameyg/service-a:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: SERVICE_B_URL
